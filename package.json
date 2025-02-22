@@ -1,0 +1,37 @@
+{
+  "name": "am-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node index.ts",
+    "start": "node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-db": "node build/scripts/create-database.js",
+    "_comment_migration:create": "npm run migration:create -- 'migra_name'",
+    "migration:create": "node build/scripts/create-migration.js",
+    "migrate": "node build/scripts/create-database.js && env-cmd npx sequelize-cli db:migrate",
+    "migrate:rollback": "env-cmd npx sequelize-cli db:migrate:undo"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "env-cmd": "^10.1.0",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.7",
+    "sequelize": "^6.37.5",
+    "sequelize-cli": "^6.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

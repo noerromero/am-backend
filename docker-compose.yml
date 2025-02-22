@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  linux:
+    image: alpine
+    platform: linux/amd64
+    container_name: linux_base
+    command: tail -f /dev/null
+  
+  db:
+    image: mysql
+    platform: linux/amd64
+    env_file: ./.env
+    container_name: am_database
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    ports:
+      - $DB_DOCKER_PORT:${DB_PORT}
+    depends_on:
+      - linux
+  
+  migrations:
+    build: .
+    container_name: am_migrations
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USERNAME}
+      DB_PASS: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    depends_on:
+      - db
+    command: >
+      sh -c "
+      npm install &&
+      npm run migrate
+      "
