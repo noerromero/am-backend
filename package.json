@@ -9,6 +9,7 @@
     "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "create-db": "node build/scripts/create-database.js",
+    "db-reset": "node build/scripts/create-database.js --drop && env-cmd npx sequelize-cli db:migrate",
     "_comment_migration:create": "npm run migration:create -- 'migra_name'",
     "migration:create": "node build/scripts/create-migration.js",
     "migrate": "node build/scripts/create-database.js && env-cmd npx sequelize-cli db:migrate",
